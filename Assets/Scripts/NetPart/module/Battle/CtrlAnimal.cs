@@ -37,6 +37,7 @@ public class CtrlAnimal : BaseAnimal
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
         anim = gameObject.GetComponent<Animator>();
+        
     }
 
     //private void MoveUpdate()
@@ -103,6 +104,7 @@ public class CtrlAnimal : BaseAnimal
         //TurretUpdate();
         //开炮
         FireUpdate();
+        FireBombUpdate();
     }
 
     //移动控制
@@ -157,7 +159,50 @@ public class CtrlAnimal : BaseAnimal
         msg.ex = bullet.transform.eulerAngles.x;
         msg.ey = bullet.transform.eulerAngles.y;
         msg.ez = bullet.transform.eulerAngles.z;
+
+        msg.Fireid = "QAttack";
+
         NetManager.Send(msg);
+    }
+
+    public void FireBombUpdate()
+    {
+        //已经死亡
+        //if (IsDie())
+        //{
+        //    return;
+        //}
+        //if (isdizzy())
+        //{
+        //    return;
+        //}
+        //按键判断
+        if (ItemManager.isThrowBomb==false)
+        {
+            return;
+        }
+        //cd是否判断
+        if (Time.time - lastFireTime < fireCd)
+        {
+            return;
+        }
+     
+        Debug.Log(id + "************************************");
+        Bomb bomb = FireBomb();
+
+        //发送同步协议
+        MsgFire msg = new MsgFire();
+        msg.x = bomb.transform.position.x;
+        msg.y = bomb.transform.position.y;
+        msg.z = bomb.transform.position.z;
+        msg.ex = bomb.transform.eulerAngles.x;
+        msg.ey = bomb.transform.eulerAngles.y;
+        msg.ez = bomb.transform.eulerAngles.z;
+        msg.Fireid = "BombAttack";
+        NetManager.Send(msg);
+
+
+        ItemManager.isThrowBomb = false;
     }
 
     //发送同步信息

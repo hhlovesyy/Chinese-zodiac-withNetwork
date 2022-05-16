@@ -14,7 +14,8 @@ public class ItemBox : MonoBehaviour
     void Start()
     {
         // 生成时，随机确定自己的类别
-        int typeNumber = Random.Range(0, 3);  //取0-3（不包括3）
+        int typeNumber = 0;//测试
+        //int typeNumber = Random.Range(0, 3);  //取0-3（不包括3）
         switch (typeNumber)
         {
             case 0:

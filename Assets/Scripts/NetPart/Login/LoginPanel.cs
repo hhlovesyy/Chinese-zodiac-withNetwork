@@ -44,7 +44,7 @@ public class LoginPanel : BasePanel
         //172.20.10.2
         //NetManager.Connect("172.20.10.2", 8888); //这个是服务器的公网地址以及对应的端口号
 
-         //NetManager.Connect("47.111.176.71", 8888); //这个是服务器的公网地址以及对应的端口号
+        //NetManager.Connect("47.111.176.71", 8888); //这个是服务器的公网地址以及对应的端口号
     }
 
     //关闭

@@ -112,10 +112,13 @@ using UnityEngine.UI;
 
 static class ItemManager
 {
+    public static bool isThrowBomb;
     private static Image itemIcon;
-
+    
     [Header("道具Prefab")]
     public static GameObject bombPrefab;
+
+    public static GameObject playeranimal;///
 
     public static void useItem1(Transform throwPos)
     {
@@ -194,18 +197,28 @@ static class ItemManager
             case "bomb":
                 Debug.Log("丢炸弹");
                 // 生成bomb
+                isThrowBomb = true;
 
-                GameObject bombObj = new GameObject("Mbomb");
-                //bulletObj.layer = LayerMask.NameToLayer("Bullet");
-                Bomb mbomb = bombObj.AddComponent<Bomb>();
-                mbomb.Init();
-                
-                //位置
-                mbomb.transform.position = throwPos.position;
-                mbomb.transform.rotation = Quaternion.identity;
+                // BaseAnimal baseAnimal = playeranimal.GetComponent<BaseAnimal>();
+                ////CtrlAnimal ctrlAnimal = playeranimal.GetComponent<CtrlAnimal>();
+                ////Debug.Log(ctrlAnimal.id+"************************************");
+                ////Bomb bomb = ctrlAnimal.FireBomb();
+                //Debug.Log(baseAnimal.id + "************************************");
+                //Bomb bomb = baseAnimal.FireBomb();
+
+                // Bullet bullet = Fire();
+
+                //GameObject bombObj = new GameObject("Mbomb");
+                ////bulletObj.layer = LayerMask.NameToLayer("Bullet");
+                //Bomb mbomb = bombObj.AddComponent<Bomb>();
+                //mbomb.Init();
+
+                ////位置
+                //mbomb.transform.position = throwPos.position;
+                //mbomb.transform.rotation = Quaternion.identity;
 
                 //bombPrefab = Resources.Load("Prefabs/Items/Bomb", typeof(GameObject)) as GameObject;
-                var bomb = MonoBehaviour.Instantiate(bombPrefab, throwPos.position, Quaternion.identity);
+                //var bomb = MonoBehaviour.Instantiate(bombPrefab, throwPos.position, Quaternion.identity);
                 break;
         }
     }

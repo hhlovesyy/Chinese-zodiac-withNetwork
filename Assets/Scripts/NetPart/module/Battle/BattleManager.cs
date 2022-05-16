@@ -22,19 +22,19 @@ public class BattleManager
         //NetManager.AddMsgListener("MsgAnimation", OnMsgAnimation);
     }
 
-    //添加坦克
+    //添加动物
     public static void AddAnimal(string id, BaseAnimal animal)
     {
         animals[id] = animal;
     }//
 
-    //删除坦克
+    //删除动物
     public static void RemoveAnimal(string id)
     {
         animals.Remove(id);
     }
 
-    //获取坦克
+    //获取动物
     public static BaseAnimal GetAnimal(string id)
     {
         if (animals.ContainsKey(id))
@@ -44,7 +44,7 @@ public class BattleManager
         return null;
     }
 
-    //获取玩家控制的坦克
+    //获取玩家控制的动物
     public static BaseAnimal GetCtrlAnimal()
     {
         return GetAnimal(GameMain.id);
@@ -75,7 +75,7 @@ public class BattleManager
         //PanelManager.Open<MinimapPanel>();
 
         //PanelManager.Close("ResultPanel");
-        //产生坦克
+        //产生动物
         for (int i = 0; i < msg.animals.Length; i++)
         {
             GenerateAnimal(msg.animals[i]);
@@ -84,7 +84,7 @@ public class BattleManager
         GameManager.timeBegin = Time.time;
     }
 
-    //产生坦克
+    //产生动物
     public static void GenerateAnimal(AnimalInfo animalInfo)
     {
         //GameObject
@@ -137,7 +137,7 @@ public class BattleManager
             MiniMapFollowController miniMapFollowController = minimap.GetComponent<MiniMapFollowController>();
             miniMapFollowController.player = animal.transform;
 
-
+            ItemManager.playeranimal = animalObj;///
 
         }
         else
@@ -191,13 +191,13 @@ public class BattleManager
     public static void OnMsgLeaveBattle(MsgBase msgBase)
     {
         MsgLeaveBattle msg = (MsgLeaveBattle)msgBase;
-        //查找坦克
+        //查找动物
         BaseAnimal animal = GetAnimal(msg.id);
         if (animal == null)
         {
             return;
         }
-        //删除坦克
+        //删除动物
         RemoveAnimal(msg.id);
         MonoBehaviour.Destroy(animal.gameObject);
     }
@@ -227,7 +227,7 @@ public class BattleManager
         {
             return;
         }
-        //查找坦克
+        //查找动物
         SyncAnimal animal = (SyncAnimal)GetAnimal(msg.id);
         if (animal == null)
         {
@@ -246,7 +246,7 @@ public class BattleManager
         {
             return;
         }
-        //查找坦克
+        //查找动物
         SyncAnimal animal = (SyncAnimal)GetAnimal(msg.id);
         if (animal == null)
         {
@@ -260,15 +260,16 @@ public class BattleManager
     public static void OnMsgHit(MsgBase msgBase)
     {
         MsgHit msg = (MsgHit)msgBase;
-        //查找坦克
+        //查找动物
         BaseAnimal animal = GetAnimal(msg.targetId);
+        string mFireid = msg.Fireid;
         if (animal == null)
         {
             return;
         }
         //bool isDie = animal.IsDie();
         //被击中
-        animal.Attacked(msg.damage);
+        animal.Attacked(msg.damage,mFireid);
         //击杀提示
         //if (!isDie && animal.IsDie() && msg.id == GameMain.id)
         //{

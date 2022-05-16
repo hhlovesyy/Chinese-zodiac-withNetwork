@@ -122,11 +122,25 @@ public class SyncAnimal : BaseAnimal
     public void SyncFire(MsgFire msg)
     {
         //Debug.Log(" SyncFire---------------------"+msg);
-        Bullet bullet = Fire();
-        //更新坐标
-        Vector3 pos = new Vector3(msg.x, msg.y, msg.z);
-        Vector3 rot = new Vector3(msg.ex, msg.ey, msg.ez);
-        bullet.transform.position = pos;
-        bullet.transform.eulerAngles = rot;
+        string mFireid = msg.Fireid;
+        if(mFireid== "QAttack")
+        {
+            Bullet bullet = Fire();
+            //更新坐标
+            Vector3 pos = new Vector3(msg.x, msg.y, msg.z);
+            Vector3 rot = new Vector3(msg.ex, msg.ey, msg.ez);
+            bullet.transform.position = pos;
+            bullet.transform.eulerAngles = rot;
+        }
+        else if (mFireid == "BombAttack")
+        {
+            Bomb bomb = FireBomb();
+            //更新坐标
+            Vector3 pos = new Vector3(msg.x, msg.y, msg.z);
+            Vector3 rot = new Vector3(msg.ex, msg.ey, msg.ez);
+            bomb.transform.position = pos;
+            bomb.transform.eulerAngles = rot;
+        }
+
     }
 }

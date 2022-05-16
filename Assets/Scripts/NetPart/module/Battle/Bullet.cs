@@ -84,6 +84,8 @@ public class Bullet : MonoBehaviour
         msg.x = transform.position.x;
         msg.y = transform.position.y;
         msg.z = transform.position.z;
+
+        msg.Fireid = "QAttack";
         NetManager.Send(msg);
     }
 }

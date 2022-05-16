@@ -83,19 +83,44 @@ public class BaseAnimal : MonoBehaviour
         lastFireTime = Time.time;
         return bullet;
     }
+    public Bomb FireBomb()
+    {
+        //已经死亡
+        //if (isdie())
+        //{
+        //    return;
+        //}
+        //已经dizzy
+        //if (isdizzy())
+        //{
+        //    return null;
+        //}
+        //产生炮弹
+        GameObject bombObj = new GameObject("bomb");
+        //bulletObj.layer = LayerMask.NameToLayer("Bullet");
+        Bomb bomb  = bombObj.AddComponent<Bomb>();
+        bomb.Init();
+        bomb.animal = this;
+        //位置
+        bomb.transform.position = transform.position;
+        bomb.transform.rotation = transform.rotation;
+        //更新时间
+        lastFireTime = Time.time;
+        return bomb;
+    }
 
     ////是否死亡
     //public bool IsDie()
     //{
     //    return hp <= 0;
     //}
-   
+
     //public bool isdizzy()
     //{
     //    return false;
     //}
     //被攻击
-    public void Attacked(float att)
+    public void Attacked(float att,string Fireid)
     {
         //已经死亡
         //if (IsDie())
@@ -113,12 +138,24 @@ public class BaseAnimal : MonoBehaviour
         //    explosion.transform.SetParent(transform);
         //}
 
+        /* QAttack    BombAttack */
         //眩晕
         //显示焚烧效果
-        GameObject obj = ResManager.LoadPrefab("WFX_Explosion");
-        GameObject explosion = Instantiate(obj, transform.position, transform.rotation);
-        explosion.transform.SetParent(transform);
-        gameObject.GetComponent<Animator>().SetTrigger("Dizzy");
+        if (Fireid== "QAttack")
+        {
+            GameObject obj = ResManager.LoadPrefab("WFX_Explosion");
+            GameObject explosion = Instantiate(obj, transform.position, transform.rotation);
+            explosion.transform.SetParent(transform);
+            gameObject.GetComponent<Animator>().SetTrigger("Dizzy");
+        }
+        else if (Fireid == "BombAttack")
+        {
+            GameObject obj = ResManager.LoadPrefab("WFX_ExplosiveSmoke Big Alt");
+            GameObject explosion = Instantiate(obj, transform.position, transform.rotation);
+            explosion.transform.SetParent(transform);
+            gameObject.GetComponent<Animator>().SetTrigger("BeBomb");
+        }
+
     }
 
 

@@ -26,6 +26,8 @@ public class MsgFire : MsgBase
     public float ex = 0f;
     public float ey = 0f;
     public float ez = 0f;
+
+    public string Fireid = "";
     //服务端补充
     public string id = "";		//哪个动物
 }
@@ -40,6 +42,7 @@ public class MsgHit : MsgBase
     public float x = 0f;
     public float y = 0f;
     public float z = 0f;
+    public string Fireid = "";//
     //服务端补充
     public string id = "";      //哪个动物
     public int hp = 0;          //被击中动物血量
