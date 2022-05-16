@@ -5,7 +5,8 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     //移动速度
-    public float speed = 10f;
+    public float speed = 5f;
+    public float upspeed = 7f;
 
     private Rigidbody rb;
 
@@ -34,6 +35,7 @@ public class Bomb : MonoBehaviour
     Rigidbody rigidBody;
     public void Init()
     {
+        radius = 10f;
         //皮肤
         GameObject skinRes = ResManager.LoadPrefab("Bomb");
         skin = (GameObject)Instantiate(skinRes);
@@ -61,6 +63,8 @@ public class Bomb : MonoBehaviour
     {
         //向前移动
         transform.position += transform.forward * speed * Time.deltaTime;
+        transform.position += transform.up * upspeed * Time.deltaTime;
+        upspeed -= 0.05f;
     }
     //}
 
@@ -77,21 +81,20 @@ public class Bomb : MonoBehaviour
     //碰撞
     void OnCollisionEnter(Collision collisionInfo)
     {
-        //打到的动物
-        GameObject collObj = collisionInfo.gameObject;
-        BaseAnimal hitanimal = collObj.GetComponent<BaseAnimal>();
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+         foreach (Collider nearby in colliders)
+         {
+            BaseAnimal syncAnimal = nearby.gameObject.GetComponent<BaseAnimal>();
 
-        //不能打自己
-        if (hitanimal == animal)
-        {
-            return;
-        }
-        //打到其他动物
-        if (hitanimal != null)
-        {
-            SendMsgHit(animal, hitanimal);
-            collisionInfo.gameObject.GetComponent<Animator>().SetTrigger("BeBomb");//
-        }
+            if (syncAnimal != animal&&syncAnimal != null)
+             {
+                
+                SendMsgHit(animal, syncAnimal);
+                Debug.Log("其他玩家眩晕！");
+                 nearby.gameObject.GetComponent<Animator>().SetTrigger("BeBomb");
+                
+             }
+         }
         //显示爆炸效果
         GameObject explode = ResManager.LoadPrefab("WFX_ExplosiveSmoke Big Alt");
         //if (hitanimal != null) 
@@ -102,7 +105,38 @@ public class Bomb : MonoBehaviour
 
         //摧毁自身
         Destroy(gameObject);
+
     }
+
+    ////碰撞
+    //void OnCollisionEnter(Collision collisionInfo)
+    //{
+    //    //打到的动物
+    //    GameObject collObj = collisionInfo.gameObject;
+    //    BaseAnimal hitanimal = collObj.GetComponent<BaseAnimal>();
+
+    //    //不能打自己
+    //    if (hitanimal == animal)
+    //    {
+    //        return;
+    //    }
+    //    //打到其他动物
+    //    if (hitanimal != null)
+    //    {
+    //        SendMsgHit(animal, hitanimal);
+    //        collisionInfo.gameObject.GetComponent<Animator>().SetTrigger("BeBomb");//
+    //    }
+    //    //显示爆炸效果
+    //    GameObject explode = ResManager.LoadPrefab("WFX_ExplosiveSmoke Big Alt");
+    //    //if (hitanimal != null) 
+    //    //collisionInfo.gameObject.GetComponent<Animator>().SetTrigger("BeBomb");//
+
+    //    Vector3 Firepos = new Vector3(0, 1.75f, 2.34f);
+    //    Instantiate(explode, transform.position + Firepos, transform.rotation);
+
+    //    //摧毁自身
+    //    Destroy(gameObject);
+    //}
 
     //发送伤害协议
     void SendMsgHit(BaseAnimal animal, BaseAnimal hitanimal)

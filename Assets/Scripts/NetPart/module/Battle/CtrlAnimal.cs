@@ -30,7 +30,7 @@ public class CtrlAnimal : BaseAnimal
     int sendJump = 0;
 
     private Animator anim;
-
+    public bool isGetKey;
     private void Awake()
     {
         //getting reference for components on the Player
@@ -105,6 +105,9 @@ public class CtrlAnimal : BaseAnimal
         //开炮
         FireUpdate();
         FireBombUpdate();
+
+        //是否拿到钥匙
+        GetKeyUpdate();
     }
 
     //移动控制
@@ -201,7 +204,6 @@ public class CtrlAnimal : BaseAnimal
         msg.Fireid = "BombAttack";
         NetManager.Send(msg);
 
-
         ItemManager.isThrowBomb = false;
     }
 
@@ -224,6 +226,15 @@ public class CtrlAnimal : BaseAnimal
         msg.ez = transform.eulerAngles.z;
         //msg.turretY = turret.localEulerAngles.y;
         //msg.gunX = gun.localEulerAngles.x;
+        NetManager.Send(msg);
+    }
+
+    public void GetKeyUpdate()
+    {
+        if (isGetKey == false) return;
+        Debug.Log(" GetKeyUpdate()");
+        MsgKey msg = new MsgKey();
+        //msg.id = this.id;
         NetManager.Send(msg);
     }
 }

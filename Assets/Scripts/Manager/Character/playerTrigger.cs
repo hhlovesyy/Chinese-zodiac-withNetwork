@@ -21,11 +21,20 @@ public class playerTrigger : MonoBehaviour
             GameManager.Instance.GameOver(true);
         }
 
-        if (other.CompareTag("Key"))
+        //if (other.CompareTag("Key"))
+        //{
+        //    Debug.Log("拿到了钥匙");
+        //    Destroy(other);
+        //    // 钥匙UI显示，放在GameManager还是新建一个UI捏？
+        //}
+        if (other.CompareTag("mmKey"))
         {
-            Debug.Log("拿到了钥匙");
+            Debug.Log("拿到了钥匙9999");
+            CtrlAnimal ctrlAnimal = gameObject.GetComponent<CtrlAnimal>();
+            ctrlAnimal.isGetKey = true;
             Destroy(other);
             // 钥匙UI显示，放在GameManager还是新建一个UI捏？
         }
+
     }
 }

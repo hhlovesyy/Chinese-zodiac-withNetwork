@@ -1,4 +1,4 @@
-//同步坦克信息
+//同步动物信息
 public class MsgSyncAnimal : MsgBase
 {
     public MsgSyncAnimal() { protoName = "MsgSyncAnimal"; }
@@ -12,9 +12,16 @@ public class MsgSyncAnimal : MsgBase
     //public float turretY = 0f;
     //public float gunX = 0f;
     //服务端补充
-    public string id = "";		//哪个坦克
+    public string id = "";		//哪个动物
 }
-
+//同步钥匙信息：谁拿到了钥匙
+public class MsgKey : MsgBase
+{
+    public MsgKey() { protoName = "MsgKey"; }
+   
+    //服务端补充
+    public string id = "";		//哪个动物
+}
 //开火
 public class MsgFire : MsgBase
 {

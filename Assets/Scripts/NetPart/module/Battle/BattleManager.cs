@@ -19,6 +19,7 @@ public class BattleManager
         NetManager.AddMsgListener("MsgSyncAnimal", OnMsgSyncAnimal);
         NetManager.AddMsgListener("MsgFire", OnMsgFire);
         NetManager.AddMsgListener("MsgHit", OnMsgHit);
+        NetManager.AddMsgListener("MsgKey", OnMsgKey);
         //NetManager.AddMsgListener("MsgAnimation", OnMsgAnimation);
     }
 
@@ -259,6 +260,7 @@ public class BattleManager
     //收到击中协议
     public static void OnMsgHit(MsgBase msgBase)
     {
+        Debug.Log("开火");
         MsgHit msg = (MsgHit)msgBase;
         //查找动物
         BaseAnimal animal = GetAnimal(msg.targetId);
@@ -276,5 +278,23 @@ public class BattleManager
         //    PanelManager.Open<KillPanel>();
         //}
     }
+    public static void OnMsgKey(MsgBase msgBase)
+    {
+        MsgKey msg = (MsgKey)msgBase;
+        //不同步自己
+        if (msg.id == GameMain.id)
+        {
+            return;
+        }
+        //查找动物
+        //SyncAnimal animal = (SyncAnimal)GetAnimal(msg.id);
+        //if (animal == null)
+        //{
+        //    return;
+        //}
+        //显示动物得到钥匙 光柱
+        //animal.ShowKey(msg);
 
+        Debug.Log(msg.id+"拿到钥匙啦");
+    }
 }

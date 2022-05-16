@@ -200,6 +200,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Ê°È¡µÀ¾ß£¡");
             other.gameObject.GetComponent<ItemBox>().DestorySelf();
         }
+       
     }
 }
 
