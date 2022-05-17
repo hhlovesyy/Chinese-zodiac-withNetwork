@@ -232,9 +232,11 @@ public class CtrlAnimal : BaseAnimal
     public void GetKeyUpdate()
     {
         if (isGetKey == false) return;
+
         Debug.Log(" GetKeyUpdate()");
         MsgKey msg = new MsgKey();
         //msg.id = this.id;
         NetManager.Send(msg);
+        
     }
 }

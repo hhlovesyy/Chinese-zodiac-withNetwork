@@ -36,7 +36,8 @@ public class MsgEnterBattle:MsgBase {
 public class MsgBattleResult:MsgBase {
 	public MsgBattleResult() {protoName = "MsgBattleResult";}
 	//服务端回
-	public int winCamp = 0;	 //获胜的阵营
+	//public int winCamp = 0;	 //获胜的阵营
+	public string winId = "0";
 }
 
 //玩家退出（服务端推送）

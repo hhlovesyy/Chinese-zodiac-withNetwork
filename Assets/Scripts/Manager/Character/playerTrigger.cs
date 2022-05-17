@@ -29,12 +29,14 @@ public class playerTrigger : MonoBehaviour
         //}
         if (other.CompareTag("mmKey"))
         {
+            //if (ItemManager.isAnimalGetKey == true) return;
             Debug.Log("拿到了钥匙9999");
             CtrlAnimal ctrlAnimal = gameObject.GetComponent<CtrlAnimal>();
             ctrlAnimal.isGetKey = true;
             Destroy(other);
             // 钥匙UI显示，放在GameManager还是新建一个UI捏？
         }
+
 
     }
 }

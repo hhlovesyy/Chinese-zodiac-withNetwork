@@ -176,16 +176,26 @@ public class BattleManager
     //收到战斗结束协议
     public static void OnMsgBattleResult(MsgBase msgBase)
     {
+        
         MsgBattleResult msg = (MsgBattleResult)msgBase;
+        Debug.Log("winid-//////////////////////" + msg.winId);
+        
         //判断显示胜利还是失败
         bool isWin = false;
         BaseAnimal animal = GetCtrlAnimal();
-        if (animal != null && animal.camp == msg.winCamp)
+        Debug.Log("MEid-//////////////////////" + animal.id);
+        Debug.Log("MEid-//////////////////////" + GameMain.id);
+
+        if (animal != null && GameMain.id == msg.winId)//GameMain.id
+        {
+            isWin = true;
+        }
+        if ( GameMain.id == msg.winId)//GameMain.id
         {
             isWin = true;
         }
         //显示界面,后面再实现,自己赢和别人赢,显示的面板信息不一样
-        //PanelManager.Open<ResultPanel>(isWin);
+        PanelManager.Open<ResultPanel>(isWin);
     }
 
     //收到玩家退出协议
@@ -282,10 +292,10 @@ public class BattleManager
     {
         MsgKey msg = (MsgKey)msgBase;
         //不同步自己
-        if (msg.id == GameMain.id)
-        {
-            return;
-        }
+        //if (msg.id == GameMain.id)
+        //{
+        //    return;
+        //}
         //查找动物
         //SyncAnimal animal = (SyncAnimal)GetAnimal(msg.id);
         //if (animal == null)
@@ -294,6 +304,7 @@ public class BattleManager
         //}
         //显示动物得到钥匙 光柱
         //animal.ShowKey(msg);
+        //ItemManager.isAnimalGetKey = true;
 
         Debug.Log(msg.id+"拿到钥匙啦");
     }

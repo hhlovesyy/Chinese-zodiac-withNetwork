@@ -113,6 +113,7 @@ using UnityEngine.UI;
 static class ItemManager
 {
     public static bool isThrowBomb;
+    public static bool isAnimalGetKey;
     private static Image itemIcon;
     
     [Header("µÀ¾ßPrefab")]
